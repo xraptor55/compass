@@ -10,67 +10,55 @@ body {
   touch-action: none;
 }
 
-/* centriranje */
-#compass-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* kompas krog */
 #compass {
   width: 320px;
   height: 320px;
   border-radius: 50%;
-
   position: relative;
 
-  /* starinski izgled */
   background: radial-gradient(circle at center, #6b4b2a, #2b1c10);
   border: 10px solid #c8a24a;
-  box-shadow:
-    0 0 30px rgba(0,0,0,0.8),
-    inset 0 0 20px rgba(0,0,0,0.6);
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+
+  /* KLJUČNO: vrti se cel kompas */
+  transform: rotate(0deg);
 }
 
-/* notranji križ (smernice) */
-#compass::before {
-  content: "";
+/* smeri */
+.label {
   position: absolute;
-  inset: 15px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.15);
+  color: #f5e6c8;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
 }
 
-/* kazalec */
+/* pozicije */
+.n  { top: 10px; left: 50%; transform: translateX(-50%); }
+.s  { bottom: 10px; left: 50%; transform: translateX(-50%); }
+.e  { right: 10px; top: 50%; transform: translateY(-50%); }
+.w  { left: 10px; top: 50%; transform: translateY(-50%); }
+
+.ne { top: 35px; right: 35px; }
+.nw { top: 35px; left: 35px; }
+.se { bottom: 35px; right: 35px; }
+.sw { bottom: 35px; left: 35px; }
+
+/* igla (ostane na sredini) */
 #needle {
   position: absolute;
   width: 6px;
   height: 140px;
 
   background: linear-gradient(to bottom, #d10000, #111);
+
   top: 50%;
   left: 50%;
 
-  transform-origin: bottom center;
-  transform: translate(-50%, -100%) rotate(0deg);
+  transform: translate(-50%, -100%);
 
   border-radius: 4px;
-
   box-shadow: 0 0 10px rgba(0,0,0,0.6);
-}
 
-/* spodnji del igle */
-#needle::after {
-  content: "";
-  position: absolute;
-  bottom: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #c8a24a;
-  box-shadow: 0 0 6px rgba(0,0,0,0.6);
+  z-index: 10;
 }
