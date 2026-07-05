@@ -9,26 +9,26 @@ body {
   touch-action: none;
 }
 
-/* whole compass rotates */
+/* COMPASS (NOW FULL WHITE instead of brown) */
 #compass {
   width: 340px;
   height: 340px;
   border-radius: 50%;
   position: relative;
 
-  background: radial-gradient(circle at center, #6b4b2a, #2b1c10);
+  background: #fff; /* CHANGED: full white */
   border: 10px solid #c8a24a;
-  box-shadow: 0 0 40px rgba(0,0,0,0.8);
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
 
   transform: rotate(0deg);
 }
 
-/* full white inner disk */
+/* inner disk also white (slightly layered look) */
 #inner-disk {
   position: absolute;
   inset: 55px;
   border-radius: 50%;
-  background: #fff;
+  background: #ffffff;
 }
 
 /* labels */
@@ -36,24 +36,27 @@ body {
   position: absolute;
   font-family: Arial, sans-serif;
   font-weight: 900;
-  font-size: 20px;
+  font-size: 26px; /* BIGGER */
   color: #000;
   z-index: 5;
+
+  /* important: align rotation toward center */
+  transform-origin: center;
 }
 
-/* main directions (rotated toward center) */
+/* main directions (bottom of letters toward center) */
 .n  { top: 12px; left: 50%; transform: translateX(-50%) rotate(180deg); }
 .s  { bottom: 12px; left: 50%; transform: translateX(-50%) rotate(0deg); }
 .e  { right: 12px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
 .w  { left: 12px; top: 50%; transform: translateY(-50%) rotate(90deg); }
 
-/* diagonals */
+/* diagonals also pointing toward center */
 .ne { top: 40px; right: 40px; transform: rotate(-135deg); }
 .nw { top: 40px; left: 40px; transform: rotate(135deg); }
 .se { bottom: 40px; right: 40px; transform: rotate(-45deg); }
 .sw { bottom: 40px; left: 40px; transform: rotate(45deg); }
 
-/* needle (fixed center) */
+/* needle */
 #needle {
   position: absolute;
   width: 6px;
