@@ -13,18 +13,22 @@ document.body.addEventListener("pointerdown", (e) => {
   let target = Math.atan2(dx, dy) * (180 / Math.PI);
   if (target < 0) target += 360;
 
-  animateCompass(target);
+  const direction = Math.random() < 0.5 ? -1 : 1;
+  const spins = 2 + Math.floor(Math.random() * 5); // 2–6
+
+  animateCompass(target, direction, spins);
 });
 
-function animateCompass(target) {
+function animateCompass(target, direction, spins) {
 
   const start = current;
 
   let delta = target - start;
 
-  // shortest path (left/right)
   if (delta > 180) delta -= 360;
   if (delta < -180) delta += 360;
+
+  delta = (360 * spins + Math.abs(delta)) * direction;
 
   const duration = 5000;
   const startTime = performance.now();
@@ -35,7 +39,8 @@ function animateCompass(target) {
       ? 0
       : t === 1
       ? 1
-      : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+      : Math.pow(2, -10 * t) *
+        Math.sin((t * 10 - 0.75) * c4) + 1;
   }
 
   function animate(time) {
@@ -43,10 +48,8 @@ function animateCompass(target) {
     let t = (time - startTime) / duration;
     if (t > 1) t = 1;
 
-    // glavno gibanje + inercija
     let motion = easeOutElastic(t);
 
-    // dodatno “magnetno iskanje”
     let wobble = Math.sin(t * 14 * Math.PI) * (1 - t) * 6;
 
     let angle = start + delta * motion + wobble;
