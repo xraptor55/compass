@@ -1,6 +1,6 @@
 const compass = document.getElementById("compass");
 
-let currentRotation = 0;
+let current = 0;
 
 document.body.addEventListener("pointerdown", (e) => {
 
@@ -10,44 +10,58 @@ document.body.addEventListener("pointerdown", (e) => {
   const dx = e.clientX - cx;
   const dy = cy - e.clientY;
 
-  let targetAngle = Math.atan2(dx, dy) * (180 / Math.PI);
-  if (targetAngle < 0) targetAngle += 360;
+  let target = Math.atan2(dx, dy) * (180 / Math.PI);
+  if (target < 0) target += 360;
 
-  spinCompass(targetAngle);
+  animateCompass(target);
 });
 
-function spinCompass(target) {
+function animateCompass(target) {
 
-  const start = currentRotation;
+  const start = current;
 
-  const spins = 3;
-  const total = (360 * spins) + (target - start);
+  let delta = target - start;
 
-  const duration = 2500;
+  // shortest path (left/right)
+  if (delta > 180) delta -= 360;
+  if (delta < -180) delta += 360;
+
+  const duration = 5000;
   const startTime = performance.now();
+
+  function easeOutElastic(t) {
+    const c4 = (2 * Math.PI) / 3;
+    return t === 0
+      ? 0
+      : t === 1
+      ? 1
+      : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+  }
 
   function animate(time) {
 
     let t = (time - startTime) / duration;
     if (t > 1) t = 1;
 
-    const ease = 1 - Math.pow(1 - t, 3);
+    // glavno gibanje + inercija
+    let motion = easeOutElastic(t);
 
-    const wobble = Math.sin(t * 20 * Math.PI) * (1 - t) * 10;
+    // dodatno “magnetno iskanje”
+    let wobble = Math.sin(t * 14 * Math.PI) * (1 - t) * 6;
 
-    const angle = start + total * ease + wobble;
+    let angle = start + delta * motion + wobble;
 
     compass.style.transform = `rotate(${angle}deg)`;
 
     if (t < 1) {
       requestAnimationFrame(animate);
     } else {
-      currentRotation = target;
+      current = target;
 
       compass.style.transform = `rotate(${target}deg)`;
 
       if (navigator.vibrate) {
-        navigator.vibrate([20, 40, 80]);
+        navigator.vibrate([40, 60, 120]);
       }
     }
   }
