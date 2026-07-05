@@ -1,1 +1,45 @@
+body{
 
+margin:0;
+overflow:hidden;
+
+background:#111;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+height:100vh;
+
+touch-action:none;
+
+}
+
+#compass{
+
+width:320px;
+height:320px;
+
+border-radius:50%;
+
+background:#5c4020;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+box-shadow:0 0 50px black;
+
+}
+
+#needle{
+
+width:30px;
+
+transform-origin:50% 90%;
+
+transition:none;
+
+}
