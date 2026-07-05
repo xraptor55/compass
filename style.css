@@ -5,60 +5,75 @@ body {
   justify-content: center;
   align-items: center;
 
-  background: radial-gradient(circle at center, #1a1a1a, #000);
-  overflow: hidden;
+  background: radial-gradient(circle at center, #111, #000);
   touch-action: none;
 }
 
+/* whole compass rotates */
 #compass {
-  width: 320px;
-  height: 320px;
+  width: 340px;
+  height: 340px;
   border-radius: 50%;
   position: relative;
 
   background: radial-gradient(circle at center, #6b4b2a, #2b1c10);
   border: 10px solid #c8a24a;
-  box-shadow: 0 0 30px rgba(0,0,0,0.8);
-
-  /* KLJUČNO: vrti se cel kompas */
+  box-shadow: 0 0 40px rgba(0,0,0,0.8);
   transform: rotate(0deg);
 }
 
-/* smeri */
-.label {
+/* white inner disk (rotates WITH compass) */
+#inner-disk {
   position: absolute;
-  color: #f5e6c8;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  font-size: 18px;
+  inset: 55px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
 }
 
-/* pozicije */
-.n  { top: 10px; left: 50%; transform: translateX(-50%); }
-.s  { bottom: 10px; left: 50%; transform: translateX(-50%); }
-.e  { right: 10px; top: 50%; transform: translateY(-50%); }
-.w  { left: 10px; top: 50%; transform: translateY(-50%); }
+/* labels */
+.label {
+  position: absolute;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 16px;
+  color: #222;
+  z-index: 5;
+}
 
-.ne { top: 35px; right: 35px; }
-.nw { top: 35px; left: 35px; }
-.se { bottom: 35px; right: 35px; }
-.sw { bottom: 35px; left: 35px; }
+.n  { top: 12px; left: 50%; transform: translateX(-50%); }
+.s  { bottom: 12px; left: 50%; transform: translateX(-50%); }
+.e  { right: 12px; top: 50%; transform: translateY(-50%); }
+.w  { left: 12px; top: 50%; transform: translateY(-50%); }
 
-/* igla (ostane na sredini) */
+.ne { top: 40px; right: 40px; }
+.nw { top: 40px; left: 40px; }
+.se { bottom: 40px; right: 40px; }
+.sw { bottom: 40px; left: 40px; }
+
+/* needle (fixed center) */
 #needle {
   position: absolute;
   width: 6px;
-  height: 140px;
-
-  background: linear-gradient(to bottom, #d10000, #111);
+  height: 150px;
+  background: linear-gradient(to bottom, red, black);
 
   top: 50%;
   left: 50%;
-
   transform: translate(-50%, -100%);
-
   border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.6);
-
   z-index: 10;
+}
+
+/* pivot */
+#pivot {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #c8a24a;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
 }
