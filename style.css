@@ -9,65 +9,105 @@ body {
   touch-action: none;
 }
 
-/* COMPASS (NOW FULL WHITE instead of brown) */
+/* COMPASS */
 #compass {
   width: 340px;
   height: 340px;
   border-radius: 50%;
   position: relative;
 
-  background: #fff; /* CHANGED: full white */
+  background: #fff;
   border: 10px solid #c8a24a;
   box-shadow: 0 0 40px rgba(0,0,0,0.6);
 
   transform: rotate(0deg);
 }
 
-/* inner disk also white (slightly layered look) */
+/* inner disk */
 #inner-disk {
   position: absolute;
   inset: 55px;
   border-radius: 50%;
-  background: #ffffff;
+  background: #fff;
 }
+
+/* direction lines */
+.line {
+  position: absolute;
+  background: rgba(0,0,0,0.35);
+  z-index: 4;
+}
+
+/* vertical */
+.line.n, .line.s {
+  width: 1px;
+  height: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.line.n { top: 0; }
+.line.s { bottom: 0; }
+
+/* horizontal */
+.line.e, .line.w {
+  height: 1px;
+  width: 140px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.line.e { right: 0; }
+.line.w { left: 0; }
 
 /* labels */
 .label {
   position: absolute;
   font-family: Arial, sans-serif;
   font-weight: 900;
-  font-size: 26px; /* BIGGER */
+  font-size: 28px;
   color: #000;
   z-index: 5;
-
-  /* important: align rotation toward center */
-  transform-origin: center;
 }
 
-/* main directions (bottom of letters toward center) */
-.n  { top: 12px; left: 50%; transform: translateX(-50%) rotate(180deg); }
-.s  { bottom: 12px; left: 50%; transform: translateX(-50%) rotate(0deg); }
-.e  { right: 12px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
-.w  { left: 12px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+/* ROTATED 180° LEFT AS REQUESTED */
+.n  { top: 12px; left: 50%; transform: translateX(-50%) rotate(0deg); }
+.s  { bottom: 12px; left: 50%; transform: translateX(-50%) rotate(180deg); }
+.e  { right: 12px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+.w  { left: 12px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
 
-/* diagonals also pointing toward center */
-.ne { top: 40px; right: 40px; transform: rotate(-135deg); }
-.nw { top: 40px; left: 40px; transform: rotate(135deg); }
-.se { bottom: 40px; right: 40px; transform: rotate(-45deg); }
-.sw { bottom: 40px; left: 40px; transform: rotate(45deg); }
+.ne { top: 40px; right: 40px; transform: rotate(45deg); }
+.nw { top: 40px; left: 40px; transform: rotate(-45deg); }
+.se { bottom: 40px; right: 40px; transform: rotate(135deg); }
+.sw { bottom: 40px; left: 40px; transform: rotate(-135deg); }
 
 /* needle */
 #needle {
   position: absolute;
-  width: 6px;
-  height: 150px;
-  background: linear-gradient(to bottom, red, black);
+  width: 10px;
+  height: 160px;
+
+  background: linear-gradient(to bottom, #d10000, #7a0000);
 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -100%);
-  border-radius: 4px;
+  border-radius: 6px;
   z-index: 10;
+}
+
+/* arrow head */
+#needle::after {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 0;
+  height: 0;
+
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 18px solid #d10000;
 }
 
 /* center pivot */
